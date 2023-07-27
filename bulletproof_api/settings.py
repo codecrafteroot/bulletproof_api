@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-2!!5!=8w=^2b5b)d-vhkuhlzax3&etqp70!o(vjcm%yz2hsykm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bulletproof-api.vercel.app', 'trumpet.db.elephantsql.com']
 
 
 # Application definition
@@ -149,10 +149,22 @@ WSGI_APPLICATION = 'bulletproof_api.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgres://djaednxs:XM4gb1mm_L6aJiEhiXR5gWj8th_lHO8I@trumpet.db.elephantsql.com/djaednxs',
+        'NAME': 'djaednxs',
+        'USER': 'djaednxs',
+        'PASSWORD': 'XM4gb1mm_L6aJiEhiXR5gWj8th_lHO8I',
+        'HOST': 'trumpet.db.elephantsql.com',
+        'PORT': 5432,
     }
 }
 

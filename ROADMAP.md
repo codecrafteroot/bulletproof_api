@@ -47,3 +47,5 @@ install rest_framework_simplejwt
 not yet
 
 # deploy in vercel and elephantsql 
+create vercel.json file and rename application to app in wsgi and settings
+create an instance in elephantsql and configure DATABASE.
