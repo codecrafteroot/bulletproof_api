@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,13 +42,21 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # installed apps
+    'rest_framework',
+    'rest_framework.authtoken',
+
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
 
     # created apps
     'apps.accounts',
     'apps.authentication',
+
+    'api.v1',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +72,20 @@ MIDDLEWARE = [
 SITE_ID = 1
 
 AUTH_USER_MODEL = "accounts.UserModel"
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND') or 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or True
+MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') or False
+EMAIL_HOST = os.environ.get('EMAIL_HOST') or 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '5db0257ce041e3'
+EMAIL_HOST_PASSWORD = 'aad9fb34fd9314'
+EMAIL_PORT = os.environ.get('EMAIL_PORT') or 2525
 
 ROOT_URLCONF = 'bulletproof_api.urls'
 

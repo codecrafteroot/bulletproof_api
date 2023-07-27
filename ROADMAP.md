@@ -8,6 +8,7 @@ $ venv/bin/activate
 (venv) $ pip install djangorestframework
 (venv) $ python manage.py migrate
 (venv) $ python manage.py runserver
+mkdir apps
 
 # Account App
 ## Model Manager
@@ -29,3 +30,11 @@ Run all the tests found within the 'animals' package
 (venv) $ pip install django-allauth
 (venv) $ python manage.py migrate
 (venv) $ python manage.py runserver
+## config allauth
+
+mkdir api
+# Create API
+(venv) $ django-admin.exe startapp v1
+(venv) $ pip install dj-rest-auth
+
+# V1 App
