@@ -8,6 +8,7 @@ $ venv/bin/activate
 (venv) $ pip install djangorestframework
 (venv) $ python manage.py migrate
 (venv) $ python manage.py runserver
+
 # Account App
 ## Model Manager
 ## User Model
@@ -22,3 +23,9 @@ http://localhost:8000/admin/login/?next=/admin/
 ## create some tests
 Run all the tests found within the 'animals' package
 (venv) $ python manage.py test accounts
+
+# Authentication App
+(venv) $ django-admin.exe startapp authentication
+(venv) $ pip install django-allauth
+(venv) $ python manage.py migrate
+(venv) $ python manage.py runserver

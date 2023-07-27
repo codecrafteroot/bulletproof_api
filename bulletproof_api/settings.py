@@ -38,8 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.sites',
+
+    # installed apps
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+
     # created apps
     'apps.accounts',
+    'apps.authentication',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SITE_ID = 1
 
 AUTH_USER_MODEL = "accounts.UserModel"
 
