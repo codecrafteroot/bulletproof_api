@@ -42,3 +42,8 @@ mkdir api
 
 ## configure project auth to work with JWT
 install rest_framework_simplejwt
+
+# trying to customize YASG
+not yet
+
+# deploy in vercel and elephantsql 
