@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,6 +76,40 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = "accounts.UserModel"
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2),
+}
+
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
@@ -85,8 +120,8 @@ EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND') or 'django.core.mail.backends.sm
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or True
 MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') or False
 EMAIL_HOST = os.environ.get('EMAIL_HOST') or 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '5db0257ce041e3'
-EMAIL_HOST_PASSWORD = 'aad9fb34fd9314'
+EMAIL_HOST_USER = '2bfb7104525d8a'
+EMAIL_HOST_PASSWORD = 'e1a92978de9bed'
 EMAIL_PORT = os.environ.get('EMAIL_PORT') or 2525
 
 ROOT_URLCONF = 'bulletproof_api.urls'

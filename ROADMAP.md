@@ -39,3 +39,6 @@ mkdir api
 
 # V1 App
 (venv) $ django-admin.exe startapp v1
+
+## configure project auth to work with JWT
+install rest_framework_simplejwt
