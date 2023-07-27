@@ -38,3 +38,4 @@ mkdir api
 (venv) $ pip install dj-rest-auth
 
 # V1 App
+(venv) $ django-admin.exe startapp v1
