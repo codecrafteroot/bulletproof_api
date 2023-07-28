@@ -21,7 +21,6 @@ dist/
 /static/
 
 # Environments
-# .env
 .venv
 env/
 venv/
