@@ -6,4 +6,6 @@ from django.urls import path, include
 urlpatterns = [
     path('auth/', include('api.v1.routes.auth')),
     path('docs/', include('api.v1.routes.docs')),
+
+    path('user/', include('api.v1.routes.user')),
 ]
