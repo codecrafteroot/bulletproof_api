@@ -25,14 +25,14 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-if os.environ.get("ENV_NAME") == 'Production':
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = False
-    ALLOWED_HOSTS = ['bulletproof-api.vercel.app', os.environ.get('DB_HOST')]
-else:
+if os.environ.get("ENV_NAME") == 'DEV':
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+else:
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+    ALLOWED_HOSTS = ['bulletproof-api.vercel.app', os.environ.get('DB_HOST')]
 
 # Application definition
 
@@ -153,7 +153,14 @@ WSGI_APPLICATION = 'bulletproof_api.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if os.environ.get("ENV_NAME") == 'Production':
+if os.environ.get("ENV_NAME") == 'DEV':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -163,13 +170,6 @@ if os.environ.get("ENV_NAME") == 'Production':
             'PASSWORD': os.environ.get('DB_PASSWORD'),
             'HOST': os.environ.get('DB_HOST'),
             'PORT': os.environ.get('DB_PORT'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
