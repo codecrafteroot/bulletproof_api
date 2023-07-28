@@ -220,7 +220,7 @@ MEDIA_URL = '/media/'
 
 STORAGES = {
     # compression and caching support
-    "staticfiles": {
+    "static": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
     "default": {
