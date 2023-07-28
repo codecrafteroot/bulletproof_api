@@ -13,22 +13,26 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2!!5!=8w=^2b5b)d-vhkuhlzax3&etqp70!o(vjcm%yz2hsykm'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['bulletproof-api.vercel.app', 'trumpet.db.elephantsql.com']
-
+if os.environ.get("ENV_NAME") == 'Production':
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+    ALLOWED_HOSTS = ['bulletproof-api.vercel.app', os.environ.get('DB_HOST')]
+else:
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -119,11 +123,11 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND') or 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or True
-MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') or False
-EMAIL_HOST = os.environ.get('EMAIL_HOST') or 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '2bfb7104525d8a'
-EMAIL_HOST_PASSWORD = 'e1a92978de9bed'
-EMAIL_PORT = os.environ.get('EMAIL_PORT') or 2525
+EMAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') or False
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
 
 ROOT_URLCONF = 'bulletproof_api.urls'
 
@@ -149,24 +153,25 @@ WSGI_APPLICATION = 'bulletproof_api.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgres://djaednxs:XM4gb1mm_L6aJiEhiXR5gWj8th_lHO8I@trumpet.db.elephantsql.com/djaednxs',
-        'NAME': 'djaednxs',
-        'USER': 'djaednxs',
-        'PASSWORD': 'XM4gb1mm_L6aJiEhiXR5gWj8th_lHO8I',
-        'HOST': 'trumpet.db.elephantsql.com',
-        'PORT': 5432,
+if os.environ.get("ENV_NAME") == 'Production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'URL': os.environ.get('DB_URL'),
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
